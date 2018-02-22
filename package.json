@@ -13,7 +13,10 @@
   "author": "ulas",
   "license": "ISC",
   "dependencies": {
-    "socket.io": "^2.0.4",
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.15.1"
   }
 }
