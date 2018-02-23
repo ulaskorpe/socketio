@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>client</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+
+    <script>
+
+        var socket = io('http://localhost:8080');
+
+        socket.on('alert',function(data){
+
+                document.getElementById('goster').innerHTML = data;
+        });
+
+
+        socket.emit('click', 'PING FROM CLIENT '+new Date());
+    </script>
+</head>
+<body>
+<div id="goster"></div>
+<hr>
+<div id="click"></div>
+</body>
+</html>
