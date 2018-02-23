@@ -1,25 +1,26 @@
-var app=require('http').createServer();
-var io = require('socket.io')(app);
+/////socketio ile server/////////////
 
-app.listen(8080);
+
+
+var app=require('http').createServer()
+var io = require('socket.io')(app)
+
+app.listen(5050)
+
+console.log('socketio server created');
 
 io.on('connection',function(socket){
 
-    console.log('connected!!');
 
-    setInterval(function () {
-            socket.emit('alert','server.js : '+new Date());
-        }
-        ,1000);
-
-
+    socket.emit('alert','hello from socketio server'+ new Date());
+/*
     socket.on('click',function(data){
         console.log(data);
     });
 
-   // socket.emit('click','hello from the gutter '+new Date());
+    // socket.emit('click','hello from the gutter '+new Date());
 
     socket.on('disconnect',function(){
         console.log('smo disconnected!');
-    })
+    })*/
 });
