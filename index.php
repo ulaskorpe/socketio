@@ -11,10 +11,13 @@
         // var socket = new WebSocket('ws://socketio.test/:5000');
 
 
-        socket.onopen = function (event) {
-             window.setInterval(function () {
+     socket.onopen = function (event) {
+           //  window.setInterval(function () {
+
                 socket.send('ping from client: ' + new Date());
-            }, 2000);
+               // gonder = false;
+
+            //}, 2000);
         };
 
 
@@ -29,7 +32,19 @@
 
 </head>
 <body>
-<textarea name="goster" id="goster" cols="30" rows="10"></textarea>
+<table width="100%" border="1">
+    <tr>
+        <td>
+            <textarea name="goster" id="goster" cols="30" rows="10"></textarea>
+        </td>
+        <td>
+            <textarea name="sonuc" id="sonuc" cols="30" rows="10"></textarea><br>
+
+            <button id="btn1" onclick="fx()">GOSTER</button>
+        </td>
+    </tr>
+</table>
+
 
 </body>
 </html>

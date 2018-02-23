@@ -6,6 +6,38 @@ socket.on('connect', function (socket) {
     console.log(' 18.194.27.128:8071 : Connected!');
 });
 
+///////////////////////////DB//////////////////////////////////////////////////////
+
+var mysql = require('mysql');
+var baglanti = mysql.createConnection({
+    host : 'localhost',
+    user : 'homestead',
+    password : 'secret',
+    database : 'ekollive'
+});
+
+baglanti.connect(function(err) {
+    if (err) {
+        console.error('ERROR : ' + err.stack);
+        return;
+    }
+});
+
+/*baglanti.query("select * from tmp order by id desc limit 0,10",function(err,result){
+
+    if(err){
+        console.log(err);
+    }else{
+        console.log(result[0]['id']);
+    }
+
+});*/
+
+
+
+///////////////////////////DB//////////////////////////////////////////////////////
+
+
 ///////////////////////////////////server///////////////////////////
 
 var WebSocketServer = require('ws').Server;
@@ -21,22 +53,37 @@ var wss = new WebSocketServer({
 
 
 console.log('server started!!!');
-var sonuc="";
+
 wss.on('connection',function(ws){
     console.log('websocket connection open');
 
      socket.on('event', function(message) {
 
-         var msg =JSON.stringify(message);// sonuc;//'ping from server '+new Date();
+         var msg =JSON.stringify(message.cards);// sonuc;//'ping from server '+new Date();
+            var matchID  = 0;
+
+        baglanti.query("SELECT title FROM tmp WHERE title='"+message.matchId+"' LIMIT 0,1",function(err,result){
+
+               matchID = parseInt(result[0]['title']);
+
+
+        });
+
+        if(matchID>0){
+           baglanti.query("UPDATE tmp SET data = '"+msg+"' WHERE title='"+matchID+"'");
+            console.log(matchID+" UPDATED");
+
+        }else{
+         baglanti.query('INSERT INTO tmp (title,data,type) VALUES (\''+message.matchId+'\',\''+msg+'\',\'1\')');
+            console.log(matchID+" INSERTED");
+        }
+
          ws.send(msg,function(){});
 
      });
 
 
-   var id = setInterval(function () {
-      var message =  sonuc;//'ping from server '+new Date();
-      ws.send(message,function(){})}
-      ,10000);
+
 
    ws.on('message',function(message){
        console.log(message+":::");
