@@ -20,6 +20,8 @@ baglanti.connect(function(err) {
     if (err) {
         console.error('ERROR : ' + err.stack);
         return;
+    }else{
+        console.log("DB connected");
     }
 });
 
@@ -60,23 +62,7 @@ wss.on('connection',function(ws){
      socket.on('event', function(message) {
 
          var msg =JSON.stringify(message.cards);// sonuc;//'ping from server '+new Date();
-            var matchID  = 0;
 
-        baglanti.query("SELECT title FROM tmp WHERE title='"+message.matchId+"' LIMIT 0,1",function(err,result){
-
-               matchID = parseInt(result[0]['title']);
-
-
-        });
-
-        if(matchID>0){
-           baglanti.query("UPDATE tmp SET data = '"+msg+"' WHERE title='"+matchID+"'");
-            console.log(matchID+" UPDATED");
-
-        }else{
-         baglanti.query('INSERT INTO tmp (title,data,type) VALUES (\''+message.matchId+'\',\''+msg+'\',\'1\')');
-            console.log(matchID+" INSERTED");
-        }
 
          ws.send(msg,function(){});
 
