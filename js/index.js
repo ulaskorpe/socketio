@@ -6,6 +6,9 @@ socket.on('connect', function (socket) {
     console.log(' 18.194.27.128:8071 : Connected!');
 });
 
+
+
+
 ///////////////////////////DB//////////////////////////////////////////////////////
 
 var mysql = require('mysql');

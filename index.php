@@ -11,20 +11,18 @@
         // var socket = new WebSocket('ws://socketio.test/:5000');
 
 
-     socket.onopen = function (event) {
+            socket.onopen = function (event) {
            //  window.setInterval(function () {
-
                 socket.send('ping from client: ' + new Date());
                // gonder = false;
-
             //}, 2000);
-        };
+            };
 
 
 
             socket.onmessage = function (event) {
                 //alert(event.data);
-                document.getElementById('goster').value=event.data;
+                document.getElementById('goster').value+=event.data;
             }
 
 
