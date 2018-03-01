@@ -8,6 +8,7 @@ module.exports = {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");*/
         .replace(/'/g, "")
+        .replace(/-/g, "0")
         .replace(/"/g, "");
 },
     findInt : function  (data){

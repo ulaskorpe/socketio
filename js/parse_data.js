@@ -42,6 +42,7 @@ io.on('connection', function (socket) {
     var basketData="";
     socket_remote.on('event', function (data) {
         var matchID = JSON.stringify(data.matchId);
+        socket.emit('count',i);
         var sportID = general_helper.escapeHtml(JSON.stringify(data.sportId));
         var categoryId = general_helper.escapeHtml(JSON.stringify(data.countryId));
         var categoryName = general_helper.escapeHtml(JSON.stringify(data.countryName));
@@ -69,7 +70,7 @@ io.on('connection', function (socket) {
             "ON DUPLICATE KEY UPDATE tournamentId='" + leagueId + "'");
 
         //////////football
-        socket.emit('alert2',i);
+
         if (sportID == 4) {////football
 
             var matchStatus = general_helper.escapeHtml(JSON.stringify(data.matchStatus));
@@ -96,7 +97,7 @@ io.on('connection', function (socket) {
                 "redcardsaway='" + redcardsaway + "',redcardshome='" + redcardshome + "',yellowcardsaway='" + yellowcardsaway + "',yellowcardshome='" + yellowcardshome + "',cornersaway='" + cornersaway + "'," +
                 "cornershome='" + cornershome + "',updatedAt=NOW()");
 
-            console.log(data.score.matchscore);
+
 
             var scoreHome = general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreHome));
             var scoreAway = general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreAway));
@@ -107,34 +108,46 @@ io.on('connection', function (socket) {
             var totalHome = general_helper.escapeHtml(JSON.stringify(data.score.periodScore.totalHome))
             var totalAway = general_helper.escapeHtml(JSON.stringify(data.score.periodScore.totalAway));
 
-            sql = "INSERT INTO football_score (matchId,scoreHome,scoreAway,Home1StHalf,Away1StHalf,Home2StHalf,Away2StHalf,totalHome,totalAway) VALUES " +
-                "('"+matchID+"','"+scoreHome+"','"+scoreAway+"','"+Home1StHalf+"','"+Away1StHalf+"','"+Home2StHalf+"','"+Away2StHalf+"','"+totalHome+"','"+totalAway+"') " +
-                "ON DUPLICATE KEY UPDATE scoreHome='"+scoreHome+"',scoreAway='"+scoreAway+"',Home1StHalf='"+Home1StHalf+"'" +
-                ",Away1StHalf='"+Away1StHalf+"',Home2StHalf='"+Home2StHalf+"',Away2StHalf='"+Away2StHalf+"',totalHome='"+totalHome+"',totalAway='"+totalAway+"'," +
-                "updatedAt=NOW()";
 
-            if(i==0){
-            socket.emit('alert', sql);
+              baglanti.query("INSERT INTO football_score (matchId,scoreHome,scoreAway,Home1StHalf,Away1StHalf,Home2StHalf,Away2StHalf,totalHome,totalAway) VALUES " +
+                  "('"+matchID+"','"+scoreHome+"','"+scoreAway+"','"+Home1StHalf+"','"+Away1StHalf+"','"+Home2StHalf+"','"+Away2StHalf+"','"+totalHome+"','"+totalAway+"') " +
+                  "ON DUPLICATE KEY UPDATE scoreHome='"+scoreHome+"',scoreAway='"+scoreAway+"',Home1StHalf='"+Home1StHalf+"'" +
+                  ",Away1StHalf='"+Away1StHalf+"',Home2StHalf='"+Home2StHalf+"',Away2StHalf='"+Away2StHalf+"',totalHome='"+totalHome+"',totalAway='"+totalAway+"'," +
+                  "updatedAt=NOW()");
 
-            //    console.log(matchID+":"+Home1StHalf);
-            i++;
-            }
 
-             baglanti.query(sql);
+
+           // baglanti.query("INSERT INTO tmp (title,data,type) VALUES ('handball','"+general_helper.escapeHtml(basketData)+"','16')");
+
 
         }///football
 
-        if (sportID == 5) {////basketball
-                // basketData = JSON.stringify(data);
-                // baglanti.query("INSERT INTO tmp (title,data,type) VALUES ('tennis','"+general_helper.escapeHtml(basketData)+"','5')");
-                // if(basket==0){
-                //   ///  console.log(data,basketData);
-                //     socket.emit('alert',basketData);
-                //     basket++;
-                // }
-        }////basketball
+        if (sportID == 7) {
+
+            // if(basket==0){
+            //     basketData = JSON.stringify(data);
+            //     console.log(data,basketData);
+            //     socket.emit('alert',basketData);
+            //     basket++;
+            // }
+           }////basketball
 
 
+        ///////betresults///////////////////////////////////
+        data.betResaults.forEach(function(result){
+
+            var typeId=general_helper.escapeHtml(JSON.stringify(result.typeId));
+            var typeName=general_helper.escapeHtml(JSON.stringify(result.typeName));
+            var winId=general_helper.escapeHtml(JSON.stringify(result.winId));
+            var win=general_helper.escapeHtml(JSON.stringify(result.win));
+            var outComeId=general_helper.escapeHtml(JSON.stringify(result.outComeId));
+            var special=general_helper.escapeHtml(JSON.stringify(result.special));
+            sql = "INSERT INTO betResults (matchId,typeId,typeName,winId,win,outComeId,special) VALUES "+
+                  "('"+matchID+"','"+typeId+"','"+typeName+"','"+winId+"','"+win+"','"+outComeId+"','"+special+"')" +
+                "ON DUPLICATE KEY UPDATE typeName='"+typeName+"',win='"+win+"',outComeId='"+outComeId+"',special='"+special+"',updatedAt=NOW()";
+            baglanti.query(sql);
+        });
+        ///////betresults///////////////////////////////////
         ///////////////////////ODDTYPES-ODDS/////////////////////////////////////////////////////
         var sql = "";
         var active =0;
