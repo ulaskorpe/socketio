@@ -43,6 +43,8 @@ io.on('connection', function (socket) {
     socket_remote.on('event', function (data) {
 
         try {
+
+
             var matchID = JSON.stringify(data.matchId);
             socket.emit('count',i);
             var sportID = general_helper.escapeHtml(JSON.stringify(data.sportId));
@@ -54,15 +56,14 @@ io.on('connection', function (socket) {
             var matchTime = general_helper.escapeHtml(JSON.stringify(data.matchTime));
             var hteam = general_helper.escapeHtml(JSON.stringify(data.hteam));
             var ateam = general_helper.escapeHtml(JSON.stringify(data.ateam));
-
+            if(matchID && sportID && categoryId){
             baglanti.query("insert into `sport` (sportId,lang,sportName,minTip,status,liveStatus,locks,listOrder)   Values ('" + sportID + "','en','" + sportName + "','1','1','1','0','1')" +
                 " on duplicate key update sportName='" + sportName + "'");
             baglanti.query("INSERT INTO category (sportId,categoryId,lang,categoryName,listOrder,minTip,status,liveStatus,locks) VALUES" +
                 "('" + sportID + "','" + categoryId + "','en','" + categoryName + "','1','1','1','1','0')" +
                 " ON duplicate KEY UPDATE categoryName='" + categoryName + "',sportId='" + sportID + "'");
             baglanti.query("INSERT INTO tournament (sportId,categoryId,tournamentId,lang,tournamentName,minTip,oddsLock,listOrder,status,liveStatus,locks)" +
-                " VALUES ('" + sportID + "','" + categoryId + "','" + leagueId + "','en','" + leagueName + "','1','0','1','1','1','0') ON DUPLICATE KEY UPDATE sportId='" + sportID + "'," +
-                "categoryId='" + categoryId + "',tournamentName='" + leagueName + "'");
+                " VALUES ('" + sportID + "','" + categoryId + "','" + leagueId + "','en','" + leagueName + "','1','0','1','1','1','0') ON DUPLICATE KEY UPDATE sportId='" + sportID + "' , categoryId='" + categoryId + "',tournamentName='" + leagueName + "'");
             baglanti.query("INSERT INTO competitor (compId,lang,compId2,sportId,categoryId,tournamentId,uploadImage,compName,locks) VALUES " +
                 "('" + Math.round(Math.random() * 10000) + "','en','11','" + sportID + "','" + categoryId + "','" + leagueId + "','0','" + hteam + "','0')" +
                 "ON DUPLICATE KEY UPDATE tournamentId='" + leagueId + "'");
@@ -75,17 +76,16 @@ io.on('connection', function (socket) {
             var matchStatus = general_helper.escapeHtml(JSON.stringify(data.matchStatus));
             var betStatus = general_helper.escapeHtml(JSON.stringify(data.betStatus));
 
-
-            var scoreHome = general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreHome));// (data.score.matchScore.scoreHome!=null)? general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreHome)) : 0;
-            var scoreAway =  general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreAway)) ;// (data.score.matchScore.scoreAway!=null)? general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreAway)) : 0;
-
-            scoreHome = general_helper.isNull(scoreHome); //((scoreHome != null) && (scoreHome!='-'))?scoreHome : 0;
-            scoreAway = general_helper.isNull(scoreAway); //((scoreAway != null) && (scoreAway!='-'))?scoreAway : 0;
-
-            console.log(scoreHome+":"+scoreAway+":"+matchID);
+       //     var scoreHome = (general_helper.isEmpty(data.score.matchScore.scoreHome)) ? general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreHome)):0;// (data.score.matchScore.scoreHome!=null)? general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreHome)) : 0;
+         //   var scoreAway = (general_helper.isEmpty(data.score.matchScore.scoreAway)) ? general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreAway)) :0;// (data.score.matchScore.scoreAway!=null)? general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreAway)) : 0;
 
 
-            var score = general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreHome)) + ":" + general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreAway));
+           var scoreHome = general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreHome));
+           var scoreAway = general_helper.escapeHtml(JSON.stringify(data.score.matchScore.scoreAway));
+             console.log(scoreHome+":"+scoreAway+":"+matchID);
+
+
+            var score = scoreHome+ ":" + scoreAway;
 
 
 
@@ -100,6 +100,9 @@ io.on('connection', function (socket) {
                 var yellowredcardsaway = 0;///güncellenecek
                 var yellowredcardshome = 0;///güncellenecek
                 // baglanti.query("INSERT INTO tmp (title,data,type) VALUES ('"+matchID+"','"+JSON.stringify(data.cards.yellowCards)+"','15')");
+
+
+                try {
                 baglanti.query("INSERT INTO matches " +
                     "(matchid,sportid,matchtime,betradarid,active,matchStatus,betStatus,score,yellowredcardsaway,yellowredcardshome,redcardsaway,redcardshome," +
                     "yellowcardsaway,yellowcardshome,cornersaway,cornershome,categoryid,tournamentid) " +
@@ -112,7 +115,7 @@ io.on('connection', function (socket) {
                     "redcardsaway='" + redcardsaway + "',redcardshome='" + redcardshome + "',yellowcardsaway='" + yellowcardsaway + "',yellowcardshome='" + yellowcardshome + "',cornersaway='" + cornersaway + "'," +
                     "cornershome='" + cornershome + "',updatedAt=NOW()");
 
-
+                }catch (err){}
 
                 var Home1StHalf = general_helper.escapeHtml(JSON.stringify(data.score.periodScore.Home1StHalf));
                 var Away1StHalf = general_helper.escapeHtml(JSON.stringify(data.score.periodScore.Away1StHalf));
@@ -172,7 +175,6 @@ io.on('connection', function (socket) {
                 sql = "INSERT INTO betResults (matchId,typeId,typeName,winId,win,outComeId,special) VALUES "+
                     "('"+matchID+"','"+typeId+"','"+typeName+"','"+winId+"','"+win+"','"+outComeId+"','"+special+"')" +
                     "ON DUPLICATE KEY UPDATE typeName='"+typeName+"',win='"+win+"',outComeId='"+outComeId+"',special='"+special+"',updatedAt=NOW()";
-
              ///   console.log(sql);
                 baglanti.query(sql);
             });
@@ -238,11 +240,7 @@ io.on('connection', function (socket) {
             console.log(Object.keys(data.score));
             console.log("-----------------------");
 */
-
-
-
-
-
+            }//!empty
 
         }catch (err){
 
