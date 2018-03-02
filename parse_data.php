@@ -18,9 +18,15 @@
             document.getElementById('goster').value += data;
         });
         socket.on('alert2',function(data){
-            document.getElementById('goster2').value += data;
+            document.getElementById('goster2').value = data;
+        });
+        socket.on('alert3',function(data){
+            document.getElementById('goster3').value = data;
         });
 
+        socket.on('count',function(data){
+            document.getElementById('count').value = data;
+        });
         function showFields(){
             socket.emit('showFields','');
         }
@@ -40,10 +46,15 @@
         <td>
             <textarea name="goster2" id="goster2" cols="60" rows="10"></textarea>
         </td>
+        <td>
+            <textarea name="goster3" id="goster3" cols="60" rows="10"></textarea>
+        </td>
     </tr>
-    <tr><td colspan="2">
+    <tr><td colspan="3">
             <button id="myBtn" onclick="showFields()">field_list</button>
             <button id="myBtn2" onclick="showData()">showdata</button>
+
+            <input type="number" name="count" id="count" value="0" >
         </td></tr>
 </table>
 

@@ -16,8 +16,8 @@ module.exports = {
     return parseInt(data);
 },
 
-    parseData : function (data) {
-        console.log(data);
+    isNull : function (data) {
+        return ((data != null) && (data!='-'))?data : 0;
         }
 
 }
