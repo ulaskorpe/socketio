@@ -39,10 +39,14 @@ io.on('connection', function (socket) {
     var i = 0;
     var basket = 0;
     var typeName ="";
+    var say = 0;
+
     socket_remote.on('event', function (data) {
+        var extra =[];
         try {
             var matchID = JSON.stringify(data.matchId);
             socket.emit('count',i);
+            console.log(matchID);
             var sportID =  JSON.stringify(data.sportId);
             var categoryId = general_helper.escapeHtml(JSON.stringify(data.countryId));
             var categoryName = general_helper.escapeHtml(JSON.stringify(data.countryName));
@@ -88,6 +92,8 @@ io.on('connection', function (socket) {
 
                 if (sportID == 4) {////football
 
+
+
                     var yellowcardsaway = general_helper.findInt(data.cards.yellowCards.Away1StHalf) + general_helper.findInt(data.cards.yellowCards.Away2StHalf) + general_helper.findInt(data.cards.yellowCards.Away3StHalf) + general_helper.findInt(data.cards.yellowCards.Away4StHalf);
                     var yellowcardshome = general_helper.findInt(data.cards.yellowCards.Home1StHalf) + general_helper.findInt(data.cards.yellowCards.Home2StHalf) + general_helper.findInt(data.cards.yellowCards.Home3StHalf) + general_helper.findInt(data.cards.yellowCards.Home4StHalf);
                     var redcardsaway = general_helper.findInt(data.cards.redCards.Home1StHalf) + general_helper.findInt(data.cards.redCards.Home2StHalf) + general_helper.findInt(data.cards.redCards.Home3StHalf) + general_helper.findInt(data.cards.redCards.Home4StHalf);
@@ -116,31 +122,11 @@ io.on('connection', function (socket) {
 
                     }catch (err){}
 
-                    var Home1StHalf = general_helper.findInt(general_helper.escapeHtml(JSON.stringify(data.score.periodScore.Home1StHalf)));
-                    var Away1StHalf = general_helper.findInt(general_helper.escapeHtml(JSON.stringify(data.score.periodScore.Away1StHalf)));
-                    var Home2StHalf = general_helper.findInt(general_helper.escapeHtml(JSON.stringify(data.score.periodScore.Home2StHalf)));
-                    var Away2StHalf = general_helper.findInt(general_helper.escapeHtml(JSON.stringify(data.score.periodScore.Away2StHalf)));
-                    var totalHome = general_helper.findInt(general_helper.escapeHtml(JSON.stringify(data.score.periodScore.totalHome)));
-
-                    var totalAway = general_helper.escapeHtml(JSON.stringify(data.score.periodScore.totalAway));
 
 
 
-                    baglanti.query("INSERT INTO football_score (matchId,scoreHome,scoreAway,Home1StHalf,Away1StHalf,Home2StHalf,Away2StHalf,totalHome,totalAway) VALUES " +
-                        "('"+matchID+"','"+scoreHome+"','"+scoreAway+"','"+Home1StHalf+"','"+Away1StHalf+"','"+Home2StHalf+"','"+Away2StHalf+"','"+totalHome+"','"+totalAway+"') " +
-                        "ON DUPLICATE KEY UPDATE scoreHome='"+scoreHome+"',scoreAway='"+scoreAway+"',Home1StHalf='"+Home1StHalf+"'" +
-                        ",Away1StHalf='"+Away1StHalf+"',Home2StHalf='"+Home2StHalf+"',Away2StHalf='"+Away2StHalf+"',totalHome='"+totalHome+"',totalAway='"+totalAway+"'," +
-                        "updatedAt=NOW()");
 
-
-                    // baglanti.query("INSERT INTO tmp (title,data,type) VALUES ('handball','"+general_helper.escapeHtml(basketData)+"','16')");
-
-                    /*
-                    * {"matchScore":{"scoreHome":0,"scoreAway":0},
-                    * "periodScore":{"Home1StHalf":0,"Away1StHalf":0,"Home2StHalf":"-","Away2StHalf":"-","Home3StHalf":"-","Away3StHalf":"-","Home4StHalf":"-","Away4StHalf":"-","totalHome":0,"totalAway":0}}
-
-                    *
-                    * */
+                extra = ['cards','corners','penalties'];
 
 
 
@@ -155,13 +141,45 @@ io.on('connection', function (socket) {
                    //  console.log(sql);
                      baglanti.query(sql);
 
+
+                    if (sportID == 7) {///basket extra
+                        extra = ['QScore','twoPoints','threePoints','fouls','freeThrows'];
+                    }////basket extra
+
+                    if (sportID == 16) {
+
+                        if(say==0){
+                        console.log(JSON.stringify(data));
+                        say ++;
+                        }
+                    }////basketball
+
+
+
                 }///!football
+                var extraData = "{";
+                var count = extra.length;
+                var j = 0 ;
+               extra.forEach(function(ex){
 
-                if (sportID == 7) {
+                   if(j<(count-1)){
+                   extraData += "\""+ex+"\": "+ general_helper.escapeHtml2(JSON.stringify(data[ex]))+",";
+                   }else{
+                    extraData += "\""+ex+"\": "+ general_helper.escapeHtml2(JSON.stringify(data[ex]));
+                   }
+                   j++;
+               });
+               extraData +="}";
 
+                if(count){
+               baglanti.query("INSERT INTO matches_extradata (matchId,extradata) VALUES ('"+matchID+"','"+extraData+"') ON DUPLICATE KEY UPDATE extraData='"+extraData+"',updatedAt=NOW()");
+                }
 
-
-                }////basketball
+               //////////////////////////scores/////////////////////////////////////////////////
+               var scoreJson = "{\"score\":"+ general_helper.escapeHtml2(JSON.stringify(data.score))+"}";
+               var sql = "INSERT INTO match_score (matchId,scoreJson) VALUES ('"+matchID+"','"+scoreJson+"') ON DUPLICATE KEY UPDATE scoreJson='"+scoreJson+"',updatedAt=NOW()";
+                baglanti.query(sql);
+               //////////////////////////scores/////////////////////////////////////////////////
 
 
                 ///////betresults///////////////////////////////////
@@ -180,8 +198,8 @@ io.on('connection', function (socket) {
                    // baglanti.query(sql);
                 });
                 ///////betresults///////////////////////////////////
-                ///////////////////////ODDTYPES-ODDS/////////////////////////////////////////////////////
 
+                ///////////////////////ODDTYPES-ODDS/////////////////////////////////////////////////////
                 var active =0;
                 var oddvalue="";
                 var outcome = "";
@@ -243,7 +261,7 @@ io.on('connection', function (socket) {
                 ///////////////////////ODDTYPES-ODDS/////////////////////////////////////////////////////
 
 
-            }else{
+            }else{/////eksik veri |matchID +":"+ sportID +":"+ categoryId+":YOK"
                console.log(matchID +":"+ sportID +":"+ categoryId+":YOK")
            }//!empty
             i++;
