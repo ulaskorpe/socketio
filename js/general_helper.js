@@ -1,5 +1,5 @@
 module.exports = {
- 
+
 
 
     isFunction:  function (functionToCheck) {
