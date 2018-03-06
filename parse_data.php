@@ -8,11 +8,32 @@
     <title>parse_data</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+
     <script>
 
+        setInterval(runFunction,5000);
 
+        function runFunction(){
+
+            $.get( "server.php", function( data ) {
+                $( "#canliSonuclar" ).html( data );
+                //alert( "Load was performed." );
+            });
+
+            //document.getElementById('canliSonuclar').innerHTML = Math.random(10,500)*1000;
+        }
+
+        try{
         var socket = io('http://192.168.10.10:4646');
 
+
+
+        }catch(err){
+
+            document.getElementById('canliSonuclar').innerHTML = err;
+
+        }
 
         socket.on('alert',function(data){
             document.getElementById('goster').value += data;
@@ -23,6 +44,9 @@
         socket.on('alert3',function(data){
             document.getElementById('goster3').value = data;
         });
+
+
+
 
         socket.on('count',function(data){
             document.getElementById('count').value = data;
@@ -39,6 +63,7 @@
 <body>
 
 <table width="100%" border="1">
+    <tr><td colspan="3"><div id="canliSonuclar"></div></td></tr>
     <tr>
         <td>
             <textarea name="goster" id="goster" cols="60" rows="10"></textarea>
