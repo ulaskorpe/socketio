@@ -40,13 +40,15 @@ io.on('connection', function (socket) {
     var basket = 0;
     var typeName ="";
     var say = 0;
+    var extraData = "";
+    var count = 0;
 
     socket_remote.on('event', function (data) {
         var extra =[];
         try {
             var matchID = JSON.stringify(data.matchId);
             socket.emit('count',i);
-            console.log(matchID);
+         //   console.log(matchID);
             var sportID =  JSON.stringify(data.sportId);
             var categoryId = general_helper.escapeHtml(JSON.stringify(data.countryId));
             var categoryName = general_helper.escapeHtml(JSON.stringify(data.countryName));
@@ -57,6 +59,11 @@ io.on('connection', function (socket) {
             var hteam = general_helper.escapeHtml(JSON.stringify(data.hteam));
             var ateam = general_helper.escapeHtml(JSON.stringify(data.ateam));
 
+
+            // if(say==0 && sportID==18){
+            //     console.log(JSON.stringify(data));
+            //     say ++;
+            // }
 
            if(matchID && sportID && categoryId){
 
@@ -91,22 +98,15 @@ io.on('connection', function (socket) {
                var score = scoreHome+ ":" + scoreAway;
 
                 if (sportID == 4) {////football
-
-
-
                     var yellowcardsaway = general_helper.findInt(data.cards.yellowCards.Away1StHalf) + general_helper.findInt(data.cards.yellowCards.Away2StHalf) + general_helper.findInt(data.cards.yellowCards.Away3StHalf) + general_helper.findInt(data.cards.yellowCards.Away4StHalf);
                     var yellowcardshome = general_helper.findInt(data.cards.yellowCards.Home1StHalf) + general_helper.findInt(data.cards.yellowCards.Home2StHalf) + general_helper.findInt(data.cards.yellowCards.Home3StHalf) + general_helper.findInt(data.cards.yellowCards.Home4StHalf);
                     var redcardsaway = general_helper.findInt(data.cards.redCards.Home1StHalf) + general_helper.findInt(data.cards.redCards.Home2StHalf) + general_helper.findInt(data.cards.redCards.Home3StHalf) + general_helper.findInt(data.cards.redCards.Home4StHalf);
-
-
                     var redcardshome = general_helper.findInt(data.cards.redCards.Home1StHalf) + general_helper.findInt(data.cards.redCards.Home2StHalf) + general_helper.findInt(data.cards.redCards.Home3StHalf) + general_helper.findInt(data.cards.redCards.Home4StHalf);
                     var cornersaway = general_helper.findInt(data.corners.Away1StHalf) + general_helper.findInt(data.corners.Away2StHalf) + general_helper.findInt(data.corners.Away3StHalf) + general_helper.findInt(data.corners.Away4StHalf);
                     var cornershome = general_helper.findInt(data.corners.Home1StHalf) + general_helper.findInt(data.corners.Home2StHalf) + general_helper.findInt(data.corners.Home3StHalf) + general_helper.findInt(data.corners.Home4StHalf);
                     var yellowredcardsaway = 0;///güncellenecek
                     var yellowredcardshome = 0;///güncellenecek
                     // baglanti.query("INSERT INTO tmp (title,data,type) VALUES ('"+matchID+"','"+JSON.stringify(data.cards.yellowCards)+"','15')");
-
-
                     try {
                         baglanti.query("INSERT INTO matches " +
                             "(matchid,sportid,matchtime,betradarid,active,matchStatus,betStatus,score,yellowredcardsaway,yellowredcardshome,redcardsaway,redcardshome," +
@@ -122,12 +122,7 @@ io.on('connection', function (socket) {
 
                     }catch (err){}
 
-
-
-
-
                 extra = ['cards','corners','penalties'];
-
 
 
 
@@ -148,17 +143,14 @@ io.on('connection', function (socket) {
 
                     if (sportID == 16) {
 
-                        if(say==0){
-                        console.log(JSON.stringify(data));
-                        say ++;
-                        }
+
                     }////basketball
 
 
 
                 }///!football
-                var extraData = "{";
-                var count = extra.length;
+                 extraData = "{";
+                 count = extra.length;
                 var j = 0 ;
                extra.forEach(function(ex){
 
@@ -174,6 +166,9 @@ io.on('connection', function (socket) {
                 if(count){
                baglanti.query("INSERT INTO matches_extradata (matchId,extradata) VALUES ('"+matchID+"','"+extraData+"') ON DUPLICATE KEY UPDATE extraData='"+extraData+"',updatedAt=NOW()");
                 }
+
+
+
 
                //////////////////////////scores/////////////////////////////////////////////////
                var scoreJson = "{\"score\":"+ general_helper.escapeHtml2(JSON.stringify(data.score))+"}";
