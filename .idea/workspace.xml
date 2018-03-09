@@ -2,12 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2078a2b-51dc-4292-9b6d-dabcb259125d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/connect.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/js/find.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/competitor_match.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/find_competitor.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/menu.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/compatitor_match.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/parse_data.js" afterPath="$PROJECT_DIR$/js/parse_data.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/parse_data.php" afterPath="$PROJECT_DIR$/parse_data.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/server.php" afterPath="$PROJECT_DIR$/server.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,31 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="mysql.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/mysql.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="37" column="39" lean-forward="false" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mysql.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/mysql.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="parse_data.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/parse_data.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+            <state relative-caret-position="221">
+              <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding>
                 <marker date="1520517711084" expanded="true" signature="109:147" ph="SELECT * FRO... sport" />
               </folding>
@@ -53,8 +33,8 @@
       <file leaf-file-name="server.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/server.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1071">
-              <caret line="63" column="11" lean-forward="false" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
+            <state relative-caret-position="238">
+              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="16" selection-end-column="20" />
               <folding>
                 <marker date="1520521632985" expanded="true" signature="159:202" ph="SELECT * FRO... matches" />
                 <marker date="1520521632985" expanded="true" signature="159:276" ph="SELECT A.*,B... matches" />
@@ -78,25 +58,48 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="parse_data.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/js/parse_data.js">
+      <file leaf-file-name="competitor_match.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/competitor_match.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
-              <caret line="283" column="33" lean-forward="true" selection-start-line="283" selection-start-column="33" selection-end-line="283" selection-end-column="33" />
+            <state relative-caret-position="411">
+              <caret line="58" column="28" lean-forward="true" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
               <folding>
-                <element signature="e#12969#13304#0" expanded="false" />
-                <element signature="e#14217#15392#0" expanded="false" />
-                <element signature="e#16920#18762#0" expanded="false" />
+                <marker date="1520606272171" expanded="true" signature="134:243" ph="SELECT A.*,B... sport" />
+                <marker date="1520606272171" expanded="true" signature="260:456" ph="SELECT A.*,B... competitor_tmp" />
+                <marker date="1520606272171" expanded="true" signature="1597:1662" ph="..." />
+                <marker date="1520606272171" expanded="true" signature="1637:1662" ph="{...}" />
+                <marker date="1520606272171" expanded="true" signature="3408:3423" ph="..." />
+                <marker date="1520606272171" expanded="true" signature="3458:3558" ph="..." />
+                <marker date="1520606272171" expanded="true" signature="3530:3558" ph="..." />
+                <marker date="1520606272171" expanded="true" signature="3534:3558" ph="..." />
+                <marker date="1520606272171" expanded="true" signature="4184:4227" ph="..." />
+                <marker date="1520606272171" expanded="true" signature="4360:4405" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="compatitor_match.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/compatitor_match.php">
+      <file leaf-file-name="find_competitor.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/find_competitor.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+            <state relative-caret-position="541">
+              <caret line="75" column="13" lean-forward="false" selection-start-line="75" selection-start-column="13" selection-end-line="75" selection-end-column="13" />
+              <folding>
+                <marker date="1520606744519" expanded="true" signature="580:709" ph="SELECT A.* F... sport" />
+                <marker date="1520606744519" expanded="true" signature="1117:1326" ph="SELECT * FRO... competitor_" />
+                <marker date="1520606744519" expanded="true" signature="1117:1327" ph="SELECT * FRO... competitor_" />
+                <marker date="1520606744519" expanded="true" signature="1117:1338" ph="SELECT * FRO... competitor_" />
+                <marker date="1520606744519" expanded="true" signature="1361:1613" ph="SELECT A.*,B... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="menu.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/menu.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="10" lean-forward="false" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -172,6 +175,7 @@
       <find>special</find>
       <find>specialvalue</find>
       <find>betStatus</find>
+      <find>console.lo</find>
     </findStrings>
     <replaceStrings>
       <replace>isEmpty</replace>
@@ -218,8 +222,11 @@
         <option value="$PROJECT_DIR$/connect.php" />
         <option value="$PROJECT_DIR$/parse_data.php" />
         <option value="$PROJECT_DIR$/server.php" />
-        <option value="$PROJECT_DIR$/js/parse_data.js" />
         <option value="$PROJECT_DIR$/compatitor_match.php" />
+        <option value="$PROJECT_DIR$/menu.php" />
+        <option value="$PROJECT_DIR$/js/parse_data.js" />
+        <option value="$PROJECT_DIR$/competitor_match.php" />
+        <option value="$PROJECT_DIR$/find_competitor.php" />
       </list>
     </option>
   </component>
@@ -293,6 +300,7 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../yib" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
+    <property name="SearchEverywhereHistoryKey" value="server&#9;FILE&#9;file://C:/www/socketio/server.php" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -339,12 +347,12 @@
       <workItem from="1520323175301" duration="23395000" />
       <workItem from="1520409247765" duration="24419000" />
       <workItem from="1520496043031" duration="23374000" />
-      <workItem from="1520580681715" duration="1580000" />
+      <workItem from="1520580681715" duration="19413000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="254206000" />
+    <option name="totallyTimeSpent" value="272039000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
@@ -401,20 +409,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/js/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1326">
-          <caret line="78" column="9" lean-forward="true" selection-start-line="62" selection-start-column="5" selection-end-line="78" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="1" lean-forward="false" selection-start-line="0" selection-start-column="1" selection-end-line="0" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/express.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -676,14 +670,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/testServer.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/general_helper.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
@@ -715,20 +701,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parse_data.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
-          <folding>
-            <marker date="1520517711084" expanded="true" signature="109:147" ph="SELECT * FRO... sport" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
-          <caret line="63" column="11" lean-forward="false" selection-start-line="63" selection-start-column="11" selection-end-line="63" selection-end-column="11" />
+        <state relative-caret-position="238">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="16" selection-end-column="20" />
           <folding>
             <marker date="1520521632985" expanded="true" signature="159:202" ph="SELECT * FRO... matches" />
             <marker date="1520521632985" expanded="true" signature="159:276" ph="SELECT A.*,B... matches" />
@@ -741,23 +717,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/parse_data.js">
+    <entry file="file://$PROJECT_DIR$/parse_data.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="283" column="33" lean-forward="true" selection-start-line="283" selection-start-column="33" selection-end-line="283" selection-end-column="33" />
+        <state relative-caret-position="221">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
-            <element signature="e#12969#13304#0" expanded="false" />
-            <element signature="e#14217#15392#0" expanded="false" />
-            <element signature="e#16920#18762#0" expanded="false" />
+            <marker date="1520517711084" expanded="true" signature="109:147" ph="SELECT * FRO... sport" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/compatitor_match.php">
+    <entry file="file://$PROJECT_DIR$/menu.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="0" lean-forward="true" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+        <state relative-caret-position="102">
+          <caret line="6" column="10" lean-forward="false" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/parse_data.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="268" column="82" lean-forward="true" selection-start-line="268" selection-start-column="82" selection-end-line="268" selection-end-column="82" />
+          <folding>
+            <element signature="e#12969#13304#0" expanded="false" />
+            <element signature="e#15799#19299#0" expanded="false" />
+            <element signature="e#17030#18872#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/testServer.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/competitor_match.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="58" column="28" lean-forward="true" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
+          <folding>
+            <marker date="1520606272171" expanded="true" signature="134:243" ph="SELECT A.*,B... sport" />
+            <marker date="1520606272171" expanded="true" signature="260:456" ph="SELECT A.*,B... competitor_tmp" />
+            <marker date="1520606272171" expanded="true" signature="1597:1662" ph="..." />
+            <marker date="1520606272171" expanded="true" signature="1637:1662" ph="{...}" />
+            <marker date="1520606272171" expanded="true" signature="3408:3423" ph="..." />
+            <marker date="1520606272171" expanded="true" signature="3458:3558" ph="..." />
+            <marker date="1520606272171" expanded="true" signature="3530:3558" ph="..." />
+            <marker date="1520606272171" expanded="true" signature="3534:3558" ph="..." />
+            <marker date="1520606272171" expanded="true" signature="4184:4227" ph="..." />
+            <marker date="1520606272171" expanded="true" signature="4360:4405" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/find_competitor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="541">
+          <caret line="75" column="13" lean-forward="false" selection-start-line="75" selection-start-column="13" selection-end-line="75" selection-end-column="13" />
+          <folding>
+            <marker date="1520606744519" expanded="true" signature="580:709" ph="SELECT A.* F... sport" />
+            <marker date="1520606744519" expanded="true" signature="1117:1326" ph="SELECT * FRO... competitor_" />
+            <marker date="1520606744519" expanded="true" signature="1117:1327" ph="SELECT * FRO... competitor_" />
+            <marker date="1520606744519" expanded="true" signature="1117:1338" ph="SELECT * FRO... competitor_" />
+            <marker date="1520606744519" expanded="true" signature="1361:1613" ph="SELECT A.*,B... " />
+          </folding>
         </state>
       </provider>
     </entry>

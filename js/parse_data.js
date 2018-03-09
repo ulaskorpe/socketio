@@ -261,25 +261,30 @@ io.on('connection', function (socket) {
 
                     var typeId=general_helper.isNull(general_helper.escapeHtml(JSON.stringify(result.typeId)));
                     var typeName=general_helper.isNull(general_helper.escapeHtml(JSON.stringify(result.typeName)));
-                    var winId= general_helper.isNull(general_helper.escapeHtml(JSON.stringify(result.winId)));
+                    var winId= (general_helper.escapeHtml(JSON.stringify(result.winId) !='' ))? general_helper.isNull(general_helper.escapeHtml(JSON.stringify(result.winId))):0;
                     var win=general_helper.isNull(general_helper.escapeHtml(JSON.stringify(result.win)));
                     var outComeId=general_helper.isNull(general_helper.escapeHtml(JSON.stringify(result.outComeId)));
                     var special=general_helper.isNull(general_helper.escapeHtml(JSON.stringify(result.special)));
                     sql = "INSERT INTO betResults (matchId,typeId,typeName,winId,win,outComeId,special) VALUES "+
                         "('"+matchID+"','"+typeId+"','"+typeName+"','"+winId+"','"+win+"','"+outComeId+"','"+special+"')" +
                         "ON DUPLICATE KEY UPDATE typeName='"+typeName+"',win='"+win+"',outComeId='"+outComeId+"',special='"+special+"',updatedAt=NOW()";
-                    ///   console.log(sql);
-                   // baglanti.query(sql);
+
+
+                   try{
+                     baglanti.query(sql);
+                   }catch (err){
+                       console.log(sql);
+                   }
                 });
                 ///////betresults///////////////////////////////////
 
                 ///////////////////////ODDTYPES-ODDS/////////////////////////////////////////////////////
 
-                console.log(betStatus);
+               // console.log(betStatus);
                  if(betStatus != 'paused'){
 
-                console.log(sportID);
-                console.log(JSON.stringify(data.odds));
+
+                //console.log(JSON.stringify(data.odds));
                 var oddvalue="";
                 var outcome = "";
 
