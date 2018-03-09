@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="tr">
 <head>
+    <?php
+       include "connect.php";
+        $sports=$dbh->query("SELECT * FROM sport ORDER BY sportName");
+    ?>
+
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -11,29 +16,22 @@
     <script src="js/jquery-3.3.1.min.js"></script>
 
     <script>
+        setInterval(getData,5000);
+        function getData(){
 
-        setInterval(runFunction,5000);
-
-        function runFunction(){
-
-            $.get( "server.php", function( data ) {
+            var link = "server.php?a=1";
+            if($('#sportId').val()){
+                link+="&sportId="+$('#sportId').val();
+            }
+            $.get( link, function( data ) {
                 $( "#canliSonuclar" ).html( data );
-                //alert( "Load was performed." );
-            });
 
+            });
             //document.getElementById('canliSonuclar').innerHTML = Math.random(10,500)*1000;
         }
 
-        try{
+
         var socket = io('http://192.168.10.10:4646');
-
-
-
-        }catch(err){
-
-            document.getElementById('canliSonuclar').innerHTML = err;
-
-        }
 
         socket.on('alert',function(data){
             document.getElementById('goster').value += data;
@@ -63,13 +61,26 @@
 <body>
 
 <table width="100%" border="1">
+    <tr><td colspan="3">
+            <select name="sportId" id="sportId" onchange=" getData();">
+
+                <?php
+                foreach ($sports as $sport){
+                ?>
+                    <option value="<?=$sport['sportId']?>" <?php if($sport['sportId']==4) {?>selected<?php }?>><?=$sport['sportName']?></option>
+                <?php }?>
+            </select>
+
+
+            <input type="button" onclick="getData()" value="Yenile">
+        </td></tr>
     <tr><td colspan="3"><div id="canliSonuclar"></div></td></tr>
     <tr>
         <td>
             <textarea name="goster" id="goster" cols="60" rows="10"></textarea>
         </td>
         <td>
-            <textarea name="goster2" id="goster2" cols="60" rows="10"></textarea>
+            <textarea name="goster2" id="goster2" cols="60" rows="10">goster2</textarea>
         </td>
         <td>
             <textarea name="goster3" id="goster3" cols="60" rows="10"></textarea>
