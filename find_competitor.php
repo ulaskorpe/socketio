@@ -31,9 +31,9 @@ if(!empty($_REQUEST['key'])){
    $dizi = explode(' ' ,$_REQUEST['key']);
 
 ?>
-<table>
+<table bgcolor="black" cellspacing="1" width="100%">
 
-    <tr><td colspan="5"><?=$_REQUEST['key']?> - <?=$sportName?></td></tr>
+    <tr bgcolor="#faebd7"><td colspan="5"><?=$_REQUEST['key']?> - <?=$sportName?></td></tr>
     <?php
     foreach ($dizi as $item){
         if(strlen(trim($item)) > 2){
@@ -58,10 +58,15 @@ if(!empty($_REQUEST['key'])){
 $say = $competitors->rowCount();
             if($say){
             ?>
-        <tr><td colspan="7"><b><?=$item?>  ( <?=$say?> )</b></td></tr>
-        <tr><td>CompName</td><td>compId</td><td>compId2</td><td>lang</td><td>category</td><td>league</td><td>#</td></tr>
-            <?php foreach ($competitors as $competitor){?>
-                <tr><td><div><?=$competitor['compName']?></div></td>
+        <tr bgcolor="#f5deb3"><td colspan="7"><b><?=$item?>  ( <?=$say?> )</b></td></tr>
+        <tr bgcolor="#f5f5dc"><td>CompName</td><td>compId</td><td>compId2</td><td>lang</td><td>category</td><td>league</td><td>#</td></tr>
+            <?php
+                $i=0;
+                foreach ($competitors as $competitor){
+                $color=($i%2==0)?"#ffffff":"#f4f4f4";
+
+                ?>
+                <tr bgcolor="<?=$color?>"><td><div><?=$competitor['compName']?></div></td>
                 <td><?=$competitor['compId']?></td>
                 <td><?=$competitor['compId2']?></td>
                 <td><?=$competitor['lang']?></td>
@@ -71,7 +76,9 @@ $say = $competitors->rowCount();
                 <td><button onclick="addData('')">EKLE</button></td>
 
                 </tr>
-            <?php }
+            <?php
+                $i++;
+                }
 
             }
             ?>
