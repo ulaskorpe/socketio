@@ -1,25 +1,20 @@
 <!doctype html>
 <html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-    <title>Document</title>
-</head>
+<?php include("head.php")?>
 <body>
 
 
 
 <?php
-header('Content-Type: text/html; charset=utf-8');
+
 
 if(!empty($_REQUEST['key'])){
 
-    include "connect.php";
-        $sportName="";
 
+
+    $selected = $dbh->query("SELECT * FROM competitor_tmp WHERE compName='".trim($_REQUEST['key'])."' LIMIT 0,1")->fetch();
+
+    $sportName="";
     if(!empty($_REQUEST['sportId'])){
         $sql =  "SELECT A.* FROM sport AS A LEFT JOIN sportIndex AS B ON A.sportId=B.sportId WHERE B.betradarId='".$_REQUEST['sportId']."' LIMIT 1";
         $stmt = $dbh->prepare($sql);
@@ -31,16 +26,17 @@ if(!empty($_REQUEST['key'])){
    $dizi = explode(' ' ,$_REQUEST['key']);
 
 ?>
-<table bgcolor="black" cellspacing="1" width="100%">
+    <table width="100%" class="dataTable">
 
-    <tr bgcolor="#faebd7"><td colspan="5"><?=$_REQUEST['key']?> - <?=$sportName?></td></tr>
+    <tr class="dataTableHead"><td colspan="7"><?=$_REQUEST['key']?> [<?=$selected['lang']?>] - <?=$sportName?></td></tr>
     <?php
     foreach ($dizi as $item){
         if(strlen(trim($item)) > 2){
             $item = trim($item);
             //$sql = "SELECT A.*,B.categoryName,C.tournamentName FROM competitor_betradar AS A LEFT JOIN category AS B ON A.categoryId=B.categoryId LEFT JOIN tournament AS C ON A.tournamentId=C.tournamentId WHERE  A.compName LIKE '%".$item."%'";
-            $sql = "SELECT A.*,B.categoryName,C.tournamentName  FROM competitor_betradar AS A LEFT JOIN category AS B ON A.categoryId=B.categoryId 
-                    LEFT JOIN tournament_betradar AS C ON A.tournamentId=C.tournamentId WHERE  A.compName LIKE '%".$item."%'  ";
+
+            $sql = "SELECT A.*,B.categoryName,C.tournamentName  FROM competitor_betradar AS A LEFT JOIN category_betradar AS B ON A.categoryId=B.categoryId 
+                    LEFT JOIN tournament_betradar AS C ON A.tournamentId=C.tournamentId WHERE  A.compName LIKE '%".$item."%' AND A.lang='".$selected['lang']."'";
 
             if(!empty($_REQUEST['sportId'])){
                 $sql.=" AND A.sportId=".$_REQUEST['sportId'];
@@ -65,15 +61,17 @@ $say = $competitors->rowCount();
                 foreach ($competitors as $competitor){
                 $color=($i%2==0)?"#ffffff":"#f4f4f4";
 
+
+
                 ?>
                 <tr bgcolor="<?=$color?>"><td><div><?=$competitor['compName']?></div></td>
                 <td><?=$competitor['compId']?></td>
                 <td><?=$competitor['compId2']?></td>
                 <td><?=$competitor['lang']?></td>
-                <td><?=$competitor['categoryName']?></td>
+                <td><?=$competitor['categoryName']?> <?=$competitor['categoryId']?></td>
                     <td>  <?=$competitor['tournamentName']?></td>
 
-                <td><button onclick="addData('')">EKLE</button></td>
+                <td><button onclick="matchData('<?=$selected['compName']?>','<?=$competitor['compId']?>')">EKLE</button></td>
 
                 </tr>
             <?php
@@ -91,4 +89,18 @@ $say = $competitors->rowCount();
 
 <?php }///key?>
 </body>
+<script>
+
+    function matchData(selected,matchId){
+        var link = 'match_compatitor.php?selected='+selected+'&matchId='+matchId;
+        if(confirm("<?=$selected['compName']?> seçili kayıt ile eşleştirilecek ?")){
+            $.get( link, function( data ) {
+                $( "#sonuclar" ).html( data );
+
+            });
+        }
+    }
+</script>
+
+
 </html>

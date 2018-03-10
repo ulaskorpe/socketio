@@ -7,3 +7,15 @@ a{
 a:hover {
     color : red;
 }
+
+
+.dataTable {
+
+    width: 100%;
+    background-color: black;
+
+}
+
+.dataTableHead{
+    background-color: #faebd7;
+}

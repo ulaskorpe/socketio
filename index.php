@@ -69,10 +69,14 @@ $competitors->execute();
 
     </form>
     <tr>
-        <td width="40%" valign="top">
-            <table>
-                <?php foreach ($competitors as $competitor){?>
-                    <tr><td>
+        <td width="30%" valign="top">
+            <table width="100%">
+                <?php
+                $i=0;
+                foreach ($competitors as $competitor){
+                    $color = ($i%2==0)?"#f4f4f4":"#ffffff";
+                    ?>
+                    <tr bgcolor="<?=$color?>"><td>
                             <div class="competitor">
                                 <?php
                                 if(strpos($competitor['compName'],'/')){
@@ -88,15 +92,17 @@ $competitors->execute();
                         </td>
                         <td>
 
-                            MATCHES : <?=$competitor['recordName']?>
+                           
                         </td>
                     </tr>
 
-                <?php }?>
+                <?php
+                $i++;
+                }?>
             </table>
         </td>
 
-        <td width="60%"  valign="top">
+        <td width="70%"  valign="top">
             <div id="sonuclar"></div>
 
         </td>
